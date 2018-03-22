@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+.Contact-container{
+    font-weight: 100;
+    color:#191919;
+    margin: 0 auto;
+    background-image: url("../../images/kelsey/kelsey1.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: left;
+    font-family: 'Herr Von Muellerhoff', cursive;
+    font-size: 20px;
+    overflow: hidden;
+    color:#FFBABA;
+}
+.Contact-wrapper{
+    background: #FFF;
+    opacity:.95;
+    position:absolute;
+    overflow: hidden;
+    top:0;
+}
+.Contact-content{
+    margin-top:100px;
+    overflow: hidden;
+}
+.Contact-container h1{
+    text-align:center;
+    padding: 0;
+    margin: 0;
+    margin-top:30px;
+
+}
+.Contact-container h2{
+    text-align:center;
+    padding: 0;
+    margin: 0;
+    color:#191919;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+.Contact-title{
+    font-size:40px;
+    padding-left: 100px;
+    padding-bottom:0;
+    position:absolute;
+    bottom: -40px;
+}
+.Contact-form-container{
+    position:absolute;
+    top:85px;
+    left: 25%;
+    width:50%;
+    overflow:hidden;
+}
+.Contact-form{
+    padding-left: 50px;
+}
+@media (max-height: 600px) {
+    .Contact-title{
+        display:none;
+    }
+}
+@media (max-height: 550px) {
+    .Contact-container h1{
+        font-size: 25px;
+    }
+    .Contact-container h2{
+        font-size: 15px;
+    }
+}

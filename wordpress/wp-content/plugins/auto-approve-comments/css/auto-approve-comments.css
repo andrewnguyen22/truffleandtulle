@@ -1,0 +1,118 @@
+#aac-sections {
+	padding:18px;
+}
+
+#aac-sections section {
+	display:none;
+}
+
+#aac-sections section:first-child {
+	display:block;
+}
+
+#aac-commenters-list p, #aac-usernames-list p {
+	padding-left: 18px;
+}
+
+#aac-sections code {
+	margin-top: 8px;
+	padding: 8px;
+	display: inline-block;
+}
+
+.aac-helpdiv {
+	margin-bottom: 16px;
+}
+
+#aac-submit {
+	margin-left: 18px;
+}
+
+#aac-submit p {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+.aac-floatleft {
+	float:left;
+}
+
+.aac-inputdiv {
+	padding-right: 20px;
+}
+
+#aac-commenters-section .aac-textarea {
+	width: 80%;
+	height: 150px;
+}
+
+#aac-users-section .aac-textarea {
+	width: 50%;
+	height: 150px;
+}
+
+#aac-roles-section .aac-textarea {
+	width: 50%;
+	height: 150px;
+}
+
+#aac-sections p {
+	height: 150px;
+}
+
+#aac-commenters-autocomplete {
+	width: 50%;
+}
+
+#aac-usernames-autocomplete {
+	width: 30%;
+}
+
+#aac-roles-autocomplete {
+	width: 30%;
+}
+
+#aac-notice-success, #aac-notice-error {
+	height: 45px;
+	display: none;
+	background-color: #fff;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    -o-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    margin-bottom: 1em;
+}
+
+#aac-notice-success {
+    border-left: 4px solid #7ad03a;
+}
+
+#aac-notice-error {
+    border-left: 4px solid #dc3232;
+}
+
+#aac-notice-success p, #aac-notice-error p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 1em;
+}
+
+#aac-notice-success-dismiss, #aac-notice-error-dismiss {
+	float: right;
+    position: relative;
+	width: 38px;
+	height: 38px;
+	padding: 0;
+    margin-top: 0.2em;
+    margin-right: 0.8em;
+    border: 0;
+    background-color: #fff;
+    font-size: 16px;
+    color: #b4b9be;
+    cursor: pointer;
+}
+
+#aac-notice-success-dismiss:hover, #aac-notice-error-dismiss:hover {
+    color: #c00;
+}
+

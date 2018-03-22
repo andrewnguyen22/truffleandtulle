@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
+.preload {
+    display: none;
+}
+.header h1 {
+    color: white;
+    text-align: center;
+    font-family: 'Herr Von Muellerhoff', cursive;
+    font-size: 60px;
+    position: absolute;
+    right: 30px;
+    bottom: 0;
+    margin: 0;
+}
+
+.Home-sidebar {
+    margin-top: 90%;
+    height: 50px;
+    position: absolute;
+    left: 20px;
+    bottom: 5px;
+    z-index: 2;
+}
+
+.Explainer-container {
+    background: black;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.Explainer-content {
+    padding-left: 10%;
+    padding-right: 10%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.Explainer-col {
+    background:white;
+    display: inline-block;
+    padding: 5%;
+    padding-top: 10px;
+    color: black;
+    float: left;
+    font-family: 'Herr Von Muellerhoff', cursive;
+    text-align: justify;
+    font-size: 20px;
+}
+
+.Explainer-col h1 {
+    text-align: center;
+    font-size: 50px;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.Explainer-col h5 {
+    color:black;
+    font-family: 'Josefin Slab', serif;
+    margin: 20px;
+    font-size: 25px;
+}
+
+.parallax {
+    /* The image used */
+    min-height: 600px;
+    width: 100%;
+    display: table;
+}
+.parallax1{
+    z-index: -1;
+    content: "";
+    position: fixed;
+    top: 80px;
+    /* Set a specific height */
+    min-height: 600px;
+    width: 100%;
+    /* Create the parallax scrolling effect */
+    background-position: center;
+    -webkit-transform: translate3d(0, 0, 0);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.parallax1-before{
+    z-index: -1;
+    background-image: url("../../images/backgroun7h.png");
+}
+.parallax2-before{
+    z-index: -1;
+    background-image: url("../../images/background8.png");
+}
+.parallax3-before{
+    z-index: -1;
+    background-image: url("../../images/background9.png");
+}
+
+.Parallax1-header h1 {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+    font-size: 70px;
+    font-family: 'Herr Von Muellerhoff', cursive;
+}
+
+.Recent-container{
+    background:black;
+    width:100%;
+    height:1000px;
+    padding-left:50px;
+    padding-right:50px;
+    display:table;
+    overflow: hidden;
+}
+.Recent-posts-container{
+    margin:0 auto;
+    padding:0;
+    display:block;
+    width:1100px;
+    height:500px;
+}
+
+.Recent-posts-col{
+    padding:0;
+    margin:0 auto;
+    padding-left:10px;
+    padding-right:10px;
+    width:50%;
+    height:500px;
+    float:left;
+}
+.Recent-posts-content{
+    background:white;
+    width:100%;
+    height:100%;
+}
+
+.Recent-image-slideshow2{
+    width:100%;
+    display:table;
+    overflow:hidden;
+    height:400px;
+}
+.imagegal2{
+    display:table-cell;
+    vertical-align:middle;
+}
+@media (max-width:1200px) {
+    .Recent-container{
+        margin-left:0;
+        margin-right:0;
+    }
+    .Recent-posts-container{
+        width:900px;
+    }
+}
+@media (max-width: 1000px) {
+    .Recent-posts-container{
+        width:700px;
+    }
+    .Explainer-content {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .Recent-posts-col{
+        width:100%;
+    }
+    .Rpcol2{
+        display:none;
+        height:0;
+        width:0;
+        overflow:visible;
+        position:absolute;
+    }
+}
+@media (max-width:800px){
+    .Recent-container{
+      padding-left:25px;
+        padding-right:25px;
+    }
+    .Recent-posts-container{
+        width:550px;
+    }
+}
+@media (max-width:600px){
+    .Recent-container{
+        padding-left:0;
+        padding-right:0;
+    }
+    .Recent-posts-container{
+        width:500px;
+    }
+}
+@media (max-width: 500px) {
+    .Recent-posts-container{
+        width:400px;
+    }
+    .Explainer-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .Explainer-col h1 {
+        font-size: 30px;
+    }
+
+    .Explainer-col h5 {
+        font-size: 15px;
+    }
+    .Parallax1-header h1 {
+        font-size: 50px;
+    }
+
+    .header {
+    }
+
+    .header h1 {
+        font-size: 40px;
+        right: 10px;
+    }
+
+    .Home-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width:400px){
+    .Recent-posts-container{
+        width:350px;
+    }
+}
+
+@media (max-width:350px){
+    .Recent-posts-container{
+        width:300px;
+    }
+}

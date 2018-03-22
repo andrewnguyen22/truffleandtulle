@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
+.Footer-container{
+    background-color:black;
+    height: 200px;
+    overflow:hidden;
+    color:white;
+    font-family: 'Josefin Slab', serif;
+}
+.col{
+    margin-left:5%;
+    width:20%;
+    height:200px;
+    float:left;
+}
+.col a{
+    color:white;
+    font-family: 'Josefin Slab', serif;
+    text-decoration: none;
+}
+.col a:hover{
+    color:black;
+}
+
+.innercol{
+    margin-left: 20%;
+    padding-top:40px;
+}
+.col button{
+    width: 80px;
+}
+
+@media (max-width: 560px) {
+    .Footer-container{
+        height: auto;
+        margin:0 auto;
+    }
+    .col{
+        width:100%;
+        height:auto;
+        float:none;
+        margin:0 auto;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .innercol{
+        text-align: center;
+        padding-top:0;
+        margin:0 auto;
+    }
+}

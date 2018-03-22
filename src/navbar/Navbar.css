@@ -1,0 +1,82 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
+@import url('https://fonts.googleapis.com/css?family=Pontano+Sans');
+@import url('https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff');
+.fa-bars {
+    background: #191919;
+}
+nav {
+    text-align: right;
+    z-index: 1000;
+    position:fixed;
+    top: 0;
+    width:100%;
+    padding: 20px;
+    background-color: white;
+    overflow: hidden;
+    opacity: .99;
+}
+
+.navbar-attribute{
+    font-size: 15px;
+    color:#FFBABA;
+    margin-right: 50px;
+    font-family: 'Herr Von Muellerhoff', cursive;
+}
+nav .navbar-item {
+    color: #969696;
+    font-size: 12px;
+    font-family: 'Pontano Sans', sans-serif;
+}
+nav .navbar-item:visited {
+    color: #969696;
+}
+nav .navWide {
+    display: none;
+    margin: 0 auto;
+}
+nav .navWide .wideDiv {
+    text-align: right;
+}
+nav .navWide .wideDiv .navbar-item {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0 2em;
+}
+nav .navNarrow i {
+    float: left;
+    cursor: pointer;
+    color: #FFF;
+}
+nav .navNarrow .narrowLinks {
+    display: none;
+}
+nav .navNarrow .narrowLinks .navbar-item {
+    text-decoration: none;
+    display: block;
+    float: left;
+    clear: left;
+    font-family: 'Pontano Sans', sans-serif;
+    padding: 5vh 0;
+}
+.navbar-home {
+    text-decoration: none;
+    color: #000;
+    padding:20px;
+    font-family: 'Josefin Slab', serif;
+    margin-right: 50px;
+    font-size: 25px;
+}
+.navbar-home-min{
+    font-family: 'Josefin Slab', serif;
+}
+.navbar-social{
+}
+@media (min-width: 840px) {
+    nav .navWide {
+        display: block;
+    }
+    nav .navNarrow {
+        display: none;
+    }
+}
