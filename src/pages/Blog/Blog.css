@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond');
 @import url('https://fonts.googleapis.com/css?family=Exo+2');
 .preloader{
@@ -7,11 +6,14 @@
 .Blog-container {
     margin: 0 auto;
     oveflow:hidden;
-    background:#EAEAEA;
+    background:white;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: 0 -100px;
     background-size: cover;
+}
+.Blog-container hr{
+    width:80%;
 }
 .Blog-page {
     padding-top: 100px;
@@ -23,16 +25,26 @@
     margin:0 auto;
     width:1200px;
 }
+.Blog-header-title{
+    font-family:"Cormorant Garamond", serif;
+    font-size:50px;
+}
 .Blog-tile {
     margin-top:20px;
     width: 400px;
-    height: 450px;
+    height: 800px;
     float: left;
+}
+.Blog-header-subtitle{
+    font-size:25px;
+    text-align:center;
+    font-family:"Cormorant Garamond", serif;
 }
 .Blog-tile-content:hover {
     transform: scale(1.01);
 }
 .Blog-tile-content {
+    border:#ECECEE solid 1px;
     position:relative;
     background:white;
     width: 95%;
@@ -48,8 +60,22 @@
     -o-transition: all .2s ease-out;
     -ms-transition: all .2s ease-out;
 }
+.Blog-img-container{
+    position:absolute;
+    top:0;
+    width:100%;
+    height:600px;
+}
+.Blog-img {
+    text-align:center;
+    display:block;
+    margin:auto;
+    width:100%;
+    height: 100%;
+    padding:0;
+}
 .Blog-title-container{
-    margin-top:20px;
+    margin-top:620px;
     width:100%;
     padding:10px;
     height:40px;
@@ -62,7 +88,6 @@
     font-size: 25px;
     margin:0;
     padding:0;
-    margin-top:25px;
     margin-bottom:10px;
 }
 .Blog-details-container{
@@ -101,16 +126,6 @@
     font-size:7px;
     font-family: 'Exo 2', sans-serif;
 }
-.Blog-img-container{
-    width:100%;
-    height:250px;
-}
-.Blog-img {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    padding:0;
-}
 .Blog-readthispost-container{
     height:50px;
     width:100%;
@@ -128,7 +143,7 @@
     font-family: 'Exo 2', sans-serif;
 }
 .Blog-load-more-button {
-    font-family: 'Josefin Slab', serif;
+    font-family:  'Cormorant Garamond', serif;
     height: 50px;
     font-size: 20px;
     width:100%;
@@ -174,8 +189,19 @@
     .Blog-tile {
         width: 400px;
     }
+    .Blog-header-title{
+        font-size:30px;
+    }
 }
 @media (max-width: 400px) {
+    .Blog-page-inner{
+        width:350px;
+    }
+    .Blog-tile {
+        width: 350px;
+    }
+}
+@media (max-width: 350px) {
     .Blog-page-inner{
         width:300px;
     }

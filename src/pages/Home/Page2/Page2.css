@@ -1,0 +1,256 @@
+.pagetwo {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background:white;
+    padding-top: 100px;
+}
+
+.pagetwo hr {
+    width: 1000px;
+}
+
+.P2-viewpager {
+    width:1000px;
+    margin:0 auto;
+    margin-bottom:50px;
+}
+.P2-portfolio-container{
+    background:white;
+    width:100%;
+    overflow:auto;
+    height:800px;
+}
+.content{
+    width:100%;
+}
+.Viewpager-image {
+    width: 333px;
+    height: 500px;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image:url("../../../images/13601.jpg");
+}
+
+.P2-header-container {
+    background:white;
+    width: 1000px;
+    height: 100px;
+    margin: 0 auto;
+    display: table;
+}
+
+.P2-header-container h1 {
+    vertical-align: center;
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    margin: 0 auto;
+    font-size: 50px;
+}
+.P2-header-container h3 {
+    vertical-align: center;
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    margin: 0 auto;
+    padding:0;
+    font-size: 22px;
+}
+
+.P2-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    text-align: center;
+    font-size: 30px;
+}
+
+.P2-blog-post {
+    width: 800px;
+    margin: 0 auto;
+    font-family: "Cormorant Garamond", serif;
+}
+
+.P2-blog-post-img {
+    width: 800px;
+    height: 1000px;
+    margin:0 auto;
+    display:block;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.P2-blog-post h1 {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.Preview-date {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.Preview-text {
+    font-size: 25px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.Instagram-header{
+    text-align:center;
+    font-family:"Cormorant Garamond", serif;
+}
+
+.left-arrow {
+    background: url("../../../images/icons/arrow_left.png");
+    height: 64px;
+    width: 64px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+}
+
+.right-arrow {
+    background: url("../../../images/icons/arrow_right.png");
+    height: 64px;
+    width: 64px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.left-arrow_b {
+    background: url("../../../images/icons/arrow_left_b.png");
+}
+
+.right-arrow_b {
+    background: url("../../../images/icons/arrow_right_b.png");
+}
+@media(max-width:1100px){
+    .right-arrow {
+        display: none;
+        z-index: -1000;
+    }
+
+    .left-arrow {
+        display: none;
+        z-index: -1000;
+    }
+}
+@media(max-width:1000px){
+    .P2-header-container {
+        width: 800px;
+        height: 100px;
+        margin: 0 auto;
+        display: table;
+    }
+    .pagetwo hr {
+        width: 800px;
+    }
+    .P2-blog-post {
+        width: 600px;
+    }
+    .P2-blog-post-img {
+        width: 600px;
+        height: 800px;
+    }
+    .Viewpager-image{
+        width:600px;
+        height:800px;
+    }
+    .P2-viewpager {
+        width:600px;
+        height:800px;
+    }
+}
+@media(max-width:800px){
+    .P2-header-container {
+        width: 500px;
+        height: 100px;
+        margin: 0 auto;
+        display: table;
+    }
+    .pagetwo hr {
+        width: 500px;
+    }
+    .P2-blog-post {
+        width: 500px;
+    }
+    .P2-blog-post-img {
+        width: 500px;
+        height: 700px;
+    }
+    .Viewpager-image{
+        width:500px;
+        height:700px;
+    }
+    .P2-viewpager {
+        width:500px;
+        height:700px;
+    }
+}
+@media(max-width:500px){
+    .P2-header-container h1{
+        font-size:35px;
+    }
+    .P2-header-container h3{
+        font-size:25px;
+    }
+    .P2-header-container {
+        width: 400px;
+        height: 100px;
+        margin: 0 auto;
+        display: table;
+    }
+    .pagetwo hr {
+        width: 375px;
+    }
+    .P2-blog-post {
+        width: 375px;
+    }
+    .P2-blog-post-img {
+        width: 375px;
+        height: 700px;
+    }
+    .Viewpager-image{
+        width:375px;
+        height:700px;
+    }
+    .P2-viewpager {
+        width:375px;
+        height:700px;
+    }
+}
+@media(max-width:400px){
+    .P2-header-container h1{
+        font-size:35px;
+    }
+    .P2-header-container h3{
+        font-size:25px;
+    }
+    .P2-header-container {
+        width: 300px;
+        height: 100px;
+        margin: 0 auto;
+        display: table;
+    }
+    .pagetwo hr {
+        width: 300px;
+    }
+    .P2-blog-post {
+        width: 300px;
+    }
+    .P2-blog-post-img {
+        width: 300px;
+        height: 700px;
+    }
+    .Viewpager-image{
+        width:300px;
+        height:500px;
+    }
+    .P2-viewpager {
+        width:300px;
+        height:500px;
+    }
+}

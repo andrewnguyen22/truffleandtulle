@@ -7,6 +7,7 @@ import About from "./pages/About/About";
 import Portfolio from "./pages/Portfolio/Portfolio.jsx"
 import Contact from "./pages/Contact/Contact"
 import Post from "./pages/Post/Post.jsx"
+import Link from "./pages/Link/Link.js"
 import {Route} from 'react-router-dom'
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
                 <Route path="/portfolio" component={Portfolio}/>
                 <Route path="/contact" component={Contact}/>
                 <Route path="/post" component={Post}/>
+                <Route path="/link" component={Link}/>
             </div>
         );
     }

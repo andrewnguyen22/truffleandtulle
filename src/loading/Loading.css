@@ -1,0 +1,30 @@
+.Loading-container {
+    position: fixed;
+    z-index:10000000000;
+    background-color: white;
+    display: table;
+}
+
+.Loading-Image {
+    width: 400px;
+    height: 400px;
+    background-position: center;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-image:url(../images/icons/TRUFFLE&TULLE.png);
+    position:fixed; /*it can be fixed too*/
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+
+    /*this to solve "the content will not be cut when the window is smaller than the content": */
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+@media (max-width: 500px) {
+    .Loading-Image{
+        width:200px;
+        height:200px;
+    }
+}

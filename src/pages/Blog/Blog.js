@@ -78,6 +78,9 @@ class Tile extends Component {
         return (
             <div className="Blog-tile" onClick={this.handleOnClick}>
                 <div className="Blog-tile-content">
+                    <div className="Blog-img-container">
+                        <img src={this.props.parentPassesPost.better_featured_image.source_url} className="Blog-img"/>
+                    </div>
                     <div className="Blog-title-container">
                         <h1 className="Blog-title">{this.props.parentPassesPost.title.rendered}</h1>
                     </div>
@@ -93,12 +96,9 @@ class Tile extends Component {
                             {this.state.tags}
                             </span>
                     </div>
-                    <div className="Blog-img-container">
-                        <img src={this.props.parentPassesPost.better_featured_image.source_url} className="Blog-img"/>
-                    </div>
-                    <div className="Blog-readthispost-container">
-                        <h3 className="Blog-readthispost">Read This Post</h3>
-                    </div>
+                    {/*<div className="Blog-readthispost-container">*/}
+                        {/*<h3 className="Blog-readthispost">Read This Post</h3>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         );
@@ -162,11 +162,13 @@ class Page extends Component {
         const tiles = this.state.posts.map((d) => <Tile parentPassesPost={d}/>);
         return (
             <div>
-                <div className="preloader">
-                    {tiles}
-                </div>
                 <div className="Blog-page" style={{height: this.state.height - 100 + "px"}}>
                     <div className="Blog-page-inner">
+                        <center>
+                            <div className="Blog-header-title">TRUFFLE&TULLE</div>
+                            <hr />
+                            <h3 className="Blog-header-subtitle">The Blog.</h3>
+                        </center>
                         <SearchBar setParentPosts={this.setParentPosts}/>
                         <center>
                             {tiles}

@@ -11,6 +11,7 @@ var html='<!-- LightWidget WIDGET -->' +
 class Portfolio extends Component{
     render(){
         return (
+
             <div className="Portfolio-container">
                 <div className="content" dangerouslySetInnerHTML={{__html: html}}></div>
             </div>

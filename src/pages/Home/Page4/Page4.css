@@ -1,0 +1,149 @@
+.pagefour {
+    text-align:center;
+    height: 100%;
+    width: 100%;
+    display:block;
+    background:white;
+    margin-top:100px;
+    font-family: "Cormorant Garamond", 'serif'
+}
+.pagefour hr{
+    width:1000px;
+}
+.pagefour h3{
+    font-size:22px;
+}
+.Recipe-box{
+    padding-left:20px;
+    padding-right:20px;
+    width: 1000px;
+    margin:0 auto;
+    display:inline-block;
+}
+
+.P4-searchbar-container{
+    width:100%;
+    height:50px;
+    padding:0;
+    margin:0 auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.P4-searchbar-form{
+    width:100%;
+    height:50px;
+    padding:0;
+    margin:0;
+}
+.P4-searchbar-input{
+    width:800px;
+    height:50px;
+    font-family:  'Cormorant Garamond', serif;
+    margin:0;
+    padding:10px;
+    font-size: 20px;
+}
+.P4-searchbar-button{
+    width:200px;
+    height:50px;
+    font-size: 20px;
+    padding:0;
+    font-family:  'Cormorant Garamond', serif;
+    margin:0;
+    position:relative;
+
+}
+@media (max-width:500px){
+    .P4-searchbar-input{
+        font-size: 15px;
+    }
+    .P4-searchbar-button{
+        position:relative;
+        font-size: 15px;
+    }
+}
+.Recipe-card {
+    margin-bottom:30px;
+    width: 200px;
+    margin-left:20px;
+    margin-right:20px;
+    height: 400px;
+    float:left;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    border:#E0E0E0 solid 1px;
+    background:white;
+}
+.Recipe-card h1{
+    font-size:25px;
+    max-lines: 1;
+    text-wrap: none;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+.Recipe-card h3{
+    font-size:15px;
+}
+
+.Recipe-img {
+    margin:0 auto;
+    display:block;
+    width:100%;
+    height:70%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media (max-width:1000px){
+    .pagefour hr{
+        width:800px;
+    }
+    .Recipe-box{
+        width:800px;
+    }
+    .P4-searchbar-input{
+        width:600px;
+    }
+}
+@media (max-width:800px){
+    .pagefour hr{
+        width:600px;
+    }
+    .Recipe-box{
+        width:600px;
+    }
+    .P4-searchbar-input{
+        width:400px;
+    }
+}
+
+@media (max-width:600px){
+    .pagefour hr{
+        width:400px;
+    }
+    .Recipe-box{
+        width:400px;
+    }
+    .P4-searchbar-input{
+        width:300px;
+    }
+    .P4-searchbar-button{
+        width:100px;
+    }
+}
+@media (max-width:420px){
+    .pagefour hr{
+        width:300px;
+    }
+    .Recipe-box{
+        width:300px;
+    }
+    .P4-searchbar-input{
+        width:200px;
+    }
+    .P4-searchbar-button{
+        width:50px;
+    }
+}

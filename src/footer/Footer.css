@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Slab');
 .Footer-container{
-    background-color:black;
+    z-index:100;
+    background-color:white;
     height: 200px;
     overflow:hidden;
-    color:white;
+    color:black;
     font-family: 'Josefin Slab', serif;
 }
 .col{
@@ -13,12 +14,12 @@
     float:left;
 }
 .col a{
-    color:white;
+    color:black;
     font-family: 'Josefin Slab', serif;
     text-decoration: none;
 }
 .col a:hover{
-    color:black;
+    color:darkred;
 }
 
 .innercol{

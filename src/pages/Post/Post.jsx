@@ -91,10 +91,10 @@ class Comments extends Component {
                     Comments
                 </h1>
                 <hr/>
-                <br />
+                <br/>
                 {comments}
                 <center>Add A New Comment Below</center>
-                <br />
+                <br/>
                 <hr/>
                 <div className="New-Comment-container">
                     <br/>
@@ -164,7 +164,15 @@ class Post extends Component {
     }
 
     render() {
-        var post = this.props.location.state.referrer;
+        var post;
+        if (typeof this.props.location !== 'undefined') {
+            post = this.props.location.state.referrer;
+        }
+        else {
+            console.log(this.props.parentPassesPost)
+            post = this.props.parentPassesPost;
+        }
+        console.log(post.tags)
         postid = post.id;
         axios.get(tagsurl + post.tags).then(
             response => this.setTags(response.data)
