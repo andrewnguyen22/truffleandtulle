@@ -112,7 +112,12 @@
         width:600px;
     }
     .Recipe-box{
-        width:600px;
+        width:500px;
+    }
+    .Recipe-card {
+        margin-bottom:30px;
+        margin-left:10px;
+        margin-right:10px;
     }
     .P4-searchbar-input{
         width:400px;
@@ -123,8 +128,13 @@
     .pagefour hr{
         width:400px;
     }
+    .Recipe-card {
+        width:300px;
+        margin:0 auto;
+        margin-bottom:30px;
+    }
     .Recipe-box{
-        width:400px;
+        width:300px;
     }
     .P4-searchbar-input{
         width:300px;
@@ -138,12 +148,15 @@
         width:300px;
     }
     .Recipe-box{
-        width:300px;
+        width:250px;
+    }
+    .Recipe-card {
+        width:250px;
     }
     .P4-searchbar-input{
         width:200px;
     }
     .P4-searchbar-button{
-        width:50px;
+        width:100px;
     }
 }

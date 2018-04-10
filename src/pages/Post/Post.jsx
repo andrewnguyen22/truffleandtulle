@@ -4,18 +4,14 @@ import './Post.css'
 import axios from "axios/index";
 import Footer from "../../footer/Footer";
 
-const tagsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/tags?include=";
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
-const commentsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/comments?post="
-var postid = 0;
+const commentsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/comments?post=";
+const tagsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/tags?include=";
+let postid = 0;
 
 class Comment extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="Comment-container">
@@ -69,7 +65,8 @@ class Comments extends Component {
 
     postComment(name, email, comment) {
         console.log("CLICK");
-        var commentstring = (postid + "&author_name=" + name + "&author_email=" + email + "&content=" + comment);
+        let commentstring = (
+            postid + "&author_name=" + name + "&author_email=" + email + "&content=" + comment);
         axios.post(commentsurl + commentstring).then().catch(e => {
             console.log(e);
         });
@@ -77,14 +74,14 @@ class Comments extends Component {
             name: '',
             email: '',
             comment: ''
-        })
+        });
         this.getComments();
         this.forceUpdate()
     }
 
     render() {
         this.getComments();
-        const comments = this.state.retrievedComments.map((d) => <Comment parentPassesComment={d}/>);
+        const comments = this.state.retrievedComments.map((d,i) => <Comment parentPassesComment={d} key={i}/>);
         return (
             <div className="Comments-container">
                 <h1 className="Comments-title">
@@ -145,9 +142,9 @@ class Post extends Component {
     }
 
     setTags(response) {
-        var tags = '';
-        for (var i = 0; i < response.length; ++i) {
-            if (i == 0) {
+        let tags = '';
+        for (let i = 0; i < response.length; ++i) {
+            if (i === 0) {
                 tags = response[i].name;
             }
             else {
@@ -164,15 +161,13 @@ class Post extends Component {
     }
 
     render() {
-        var post;
+        let post;
         if (typeof this.props.location !== 'undefined') {
             post = this.props.location.state.referrer;
         }
         else {
-            console.log(this.props.parentPassesPost)
             post = this.props.parentPassesPost;
         }
-        console.log(post.tags)
         postid = post.id;
         axios.get(tagsurl + post.tags).then(
             response => this.setTags(response.data)
@@ -181,16 +176,15 @@ class Post extends Component {
         });
         return (
             <div className="Post-container">
-                <img className="Post-image" src={post.better_featured_image.source_url}/>
+                <img alt="Featured From Post" className="Post-image" src={post.better_featured_image.source_url}/>
                 <h1 className="Post-title">{post.title.rendered}</h1>
                 <h3 className="Post-details">
                     <span className="Post-date">{this.parseDate(post.date)}</span>
-                    <span className="Post-separator">//</span>
+                    <span className="Post-separator">/</span>
                     <span className="Post-tags">{this.state.tags}</span>
                 </h3>
                 <div className="Post-content" dangerouslySetInnerHTML={{__html: post.content.rendered}}>
                 </div>
-                {/*<h3 className="Post-author">Written By {post._embedded.author[0].name}</h3>*/}
                 <Comments/>
                 <Footer/>
             </div>

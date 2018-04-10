@@ -23,12 +23,12 @@ export class ParallaxBackground extends Component {
         this.setState({width: window.innerWidth, height: window.innerHeight});
     }
 
-    handleScroll(event) {
+    handleScroll() {
         if (window.scrollY < (this.state.height) * 3 - 20) {
             this.setState({style: "parallax1 parallax1-before"})
         }
         else if (window.scrollY < (this.state.height) * 5 - 20)
-            this.setState({style: "parallax1 parallax2-before"})
+            this.setState({style: "parallax1 parallax2-before"});
         else
             this.setState({style: "parallax1 parallax3-before"})
 

@@ -3,10 +3,8 @@
     content: "";
     position: fixed;
     top: 80px;
-    /* Set a specific height */
     min-height: 600px;
     width: 100%;
-    /* Create the parallax scrolling effect */
     background-position: center;
     -webkit-transform: translate3d(0, 0, 0);
     background-repeat: no-repeat;

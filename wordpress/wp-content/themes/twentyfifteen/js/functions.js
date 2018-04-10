@@ -94,7 +94,7 @@
 		}
 	}
 
-	// Sidebar scrolling.
+	// SocialBar scrolling.
 	function resize() {
 		windowWidth = $window.width();
 

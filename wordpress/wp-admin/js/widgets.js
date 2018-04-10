@@ -5,7 +5,7 @@ var wpWidgets;
 
 wpWidgets = {
 	/**
-	 * A closed Sidebar that gets a Widget dragged over it.
+	 * A closed SocialBar that gets a Widget dragged over it.
 	 *
 	 * @var {element|null}
 	 */
@@ -243,7 +243,7 @@ wpWidgets = {
 			tolerance: 'intersect',
 
 			/**
-			 * Open Sidebar when a Widget gets dragged over it.
+			 * Open SocialBar when a Widget gets dragged over it.
 			 *
 			 * @param {object} event jQuery event object.
 			 */
@@ -251,7 +251,7 @@ wpWidgets = {
 				var $wrap = $( event.target ).parent();
 
 				if ( wpWidgets.hoveredSidebar && ! $wrap.is( wpWidgets.hoveredSidebar ) ) {
-					// Close the previous Sidebar as the Widget has been dragged onto another Sidebar.
+					// Close the previous SocialBar as the Widget has been dragged onto another SocialBar.
 					wpWidgets.closeSidebar( event );
 				}
 
@@ -266,7 +266,7 @@ wpWidgets = {
 			},
 
 			/**
-			 * Close Sidebar when the Widget gets dragged out of it.
+			 * Close SocialBar when the Widget gets dragged out of it.
 			 *
 			 * @param {object} event jQuery event object.
 			 */
@@ -719,9 +719,9 @@ wpWidgets = {
 	},
 
 	/**
-	 * Closes a Sidebar that was previously closed, but opened by dragging a Widget over it.
+	 * Closes a SocialBar that was previously closed, but opened by dragging a Widget over it.
 	 *
-	 * Used when a Widget gets dragged in/out of the Sidebar and never dropped.
+	 * Used when a Widget gets dragged in/out of the SocialBar and never dropped.
 	 *
 	 * @param {object} event jQuery event object.
 	 */

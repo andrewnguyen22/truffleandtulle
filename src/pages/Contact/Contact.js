@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './Contact.css'
 import Footer from "../../footer/Footer"
-import {ParallaxBackground} from "../Home/ParallaxBackground.js"
+import {ParallaxBackground} from "../Home/Parallax/ParallaxBackground.js"
 
 var subscription_form = "<iframe width=\"540\" height=\"601\" src=\"https://my.sendinblue.com/users/subscribe/js_id/36pic/id/1\" frameborder=\"0\" scrolling=\"no\" allowfullscreen style=\"display: block;margin-left: auto;margin-right: auto; \"></iframe>"
 var mobile_subs_form = "<iframe width=\"300\" height=\"560\" src=\"https://my.sendinblue.com/users/subscribe/js_id/36pic/id/2\" frameborder=\"0\" scrolling=\"no\" allowfullscreen style=\"display: block;margin-left: auto;margin-right: auto;\"></iframe>"
@@ -34,6 +34,13 @@ class Header extends Component {
     }
 
     render() {
+        let style;
+        if (this.state.width > 700) {
+            style = {width: this.state.width + "px", height: this.state.height + "px"}
+        }
+        else {
+            style = {width: "100%", height: "600px"};
+        }
         return (
             <div>
                 <div className="Contact-header">
@@ -65,7 +72,7 @@ class Header extends Component {
                     </div>
                 </div>
                 <div className="Contact-wrapper"
-                     style={{width: this.state.width + "px", height: this.state.height + "px"}}>
+                     style={style}>
 
                     <div style={{margin: "0 auto"}} className="Contact-form"
                          dangerouslySetInnerHTML={{__html: this.state.form}}>

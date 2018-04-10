@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Parallax, Background} from 'react-parallax';
 import {Scrollbars} from 'react-custom-scrollbars';
 import './Page4.css'
 import axios from "axios/index";
@@ -19,7 +18,7 @@ class SearchBar extends Component {
 
     submitHandler(evt) {
         evt.preventDefault();
-        this.props.setParentPosts(this.state.inputField)
+        this.props.setParentPosts(this.state.inputField);
         this.setState({
             inputField: ''
         });
@@ -52,10 +51,7 @@ class SearchBar extends Component {
 class Recipe extends Component {
     constructor(props) {
         super(props);
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.state = {
-            width: 0,
-            height: 0,
             tags: '',
             redirect: 0,
             recipeurl: ''
@@ -63,22 +59,12 @@ class Recipe extends Component {
     }
 
     componentDidMount() {
-        this.setRecipeUrl(this.props.parentPassesPost.content.rendered)
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
+        this.setRecipeUrl(this.props.parentPassesPost.content.rendered);
     }
 
     setTags(response) {
-        var tags = '';
-        for (var i = 0; i < response.length; ++i) {
+        let tags = '';
+        for (let i = 0; i < response.length; ++i) {
             if (i == 0) {
                 tags = response[i].name.toUpperCase();
             }
@@ -91,19 +77,18 @@ class Recipe extends Component {
 
     handleOnClick = () => {
         this.setState({redirect: 1});
-    }
+    };
 
     setRecipeUrl = (recipe) => {
         const res = recipe.toString().split("\"");
-        for (var i = 0; i < res.length; ++i) {
-            console.log(res[i])
+        for (let i = 0; i < res.length; ++i) {
             if (res[i].includes(".pdf") && res[i].includes("http")) {
                 this.setState({recipeurl: res[i]})
             }
         }
-    }
+    };
     openInNewTab(url) {
-        var win = window.open(url, '_blank');
+        const win = window.open(url, '_blank');
         win.focus();
     }
     render() {
@@ -112,8 +97,8 @@ class Recipe extends Component {
         ).catch(e => {
             console.log(e);
         });
-        var title = this.props.parentPassesPost.title.rendered.toString().substr(0, 20)
-        var shortenedTitle = title.substr(0, Math.min(title.length, title.lastIndexOf(" ")));
+        const title = this.props.parentPassesPost.title.rendered.toString().substr(0, 20);
+        let shortenedTitle = title.substr(0, Math.min(title.length, title.lastIndexOf(" ")));
         if (title.length >= 19)
             shortenedTitle += "...";
         if (this.state.redirect === 1) {
@@ -140,29 +125,25 @@ class Recipe extends Component {
 class RecipeBox extends Component {
     constructor(props) {
         super(props);
-        this.state = {width: 0, height: 0, posts: [], currentURL: wordpressurl, query: ''};
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.state = {posts: [], currentURL: wordpressurl, query: ''};
         this.setParentPosts = this.setParentPosts.bind(this);
     }
 
     componentDidMount() {
-        axios.get(wordpressurl + "&per_page=" + 6).then(
+        axios.get(wordpressurl + "&per_page=6").then(
             response => this.setState({posts: response.data})
         ).catch(e => {
             console.log(e);
         });
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.state.currentURL === wordpressurl) {
-            axios.get(wordpressurl + "&per_page=" + 6 * nextProps.more).then(
+            axios.get(wordpressurl + "&per_page=" + 6 * nextProps.more).then(//TODO nextProps.more IS BROKEN
                 response => this.setState({posts: response.data})
             ).catch(e => {
                 console.log(e);
             });
-            ;
         }
         else {//Search URL
             axios.get(searchurl + this.state.query + "&per_page=" + 6 * nextProps.more).then(
@@ -170,18 +151,8 @@ class RecipeBox extends Component {
             ).catch(e => {
                 console.log(e);
             });
-            ;
         }
     }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
-    }
-
     setParentPosts(data) {
         axios.get(searchurl + data + "&per_page=" + 6).then(
             response => this.setState({query: data, posts: response.data, currentURL: searchurl})
@@ -191,7 +162,10 @@ class RecipeBox extends Component {
     };
 
     render() {
-        const tiles = this.state.posts.map((d) => <Recipe parentPassesPost={d}/>);
+        let tiles = this.state.posts.map((d, i) => <Recipe parentPassesPost={d} key={i}/>);
+        if(this.state.posts.length===0){
+            tiles = "I'm Sorry! No Results Found :("
+        }
         return (
             <div className="Recipe-box">
                 {tiles}
@@ -221,8 +195,15 @@ export class PageFour extends Component {
     }
 
     render() {
+        let style;
+        if (this.state.width > 700) {
+            style = {width: this.state.width + "px", height: this.state.height + "px"}
+        }
+        else {
+            style = {width: "100%", height: "600px"};
+        }
         return (
-            <Scrollbars style={{width: this.state.width, height: this.state.height}}>
+            <Scrollbars style={style}>
                 <div className="pagefour">
                     <div onClick={this.props.prevclick} style={{top: this.state.height * .47}}
                          className="left-arrow left-arrow_b animate bounce"/>

@@ -13,8 +13,8 @@ class Link extends Component {
     }
 
     componentDidMount() {
-        var url = window.location.href;
-        var id = url.split('?')[1];
+        let url = window.location.href;
+        let id = url.split('?')[1];
         axios.get(wordpressurl + id).then(
             response => this.setState({post: <Post parentPassesPost={response.data[0]}/>})
         ).catch(e => {

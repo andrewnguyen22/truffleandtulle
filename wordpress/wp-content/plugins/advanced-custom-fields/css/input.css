@@ -437,7 +437,7 @@ not needed in WP 3.8
 .media-modal.acf-expanded .media-sidebar { width: 667px; }
 
 
-/* Sidebar: Collapse */
+/* SocialBar: Collapse */
 .media-modal .compat-item .label {
 	margin: 0;	
 }
@@ -462,7 +462,7 @@ not needed in WP 3.8
 }
 
 
-/* Sidebar: Expand */
+/* SocialBar: Expand */
 .media-modal.acf-expanded .attachment-info .thumbnail {
 	width: 20%;
 	max-width: none;

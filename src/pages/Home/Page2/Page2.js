@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router';
-import {Parallax, Background} from 'react-parallax';
 import {Scrollbars} from 'react-custom-scrollbars';
 import './Page2.css'
 import {SocialIcon} from 'react-social-icons';
@@ -13,13 +12,13 @@ import kelsey4 from '../../../images/kelsey/kelsey1-min.jpeg'
 import kelsey5 from '../../../images/kelsey/kelsey28-min.jpeg'
 import kelsey6 from '../../../images/kelsey/kelsey18-min.jpeg'
 
-import food0 from '../../../images/kelsey/food/food1.JPG'
-import food1 from '../../../images/kelsey/food/food10.jpeg'
-import food2 from '../../../images/kelsey/food/food3.jpeg'
-import food3 from '../../../images/kelsey/food/food4.jpeg'
-import food4 from '../../../images/kelsey/food/food5.jpeg'
-import food5 from '../../../images/kelsey/food/food888.jpeg'
-import food6 from '../../../images/kelsey/food/food6.jpeg'
+import food0 from '../../../images/kelsey/food/food1-min.JPG'
+import food1 from '../../../images/kelsey/food/food10-min.jpeg'
+import food2 from '../../../images/kelsey/food/food3-min.jpeg'
+import food3 from '../../../images/kelsey/food/food4-min.jpeg'
+import food4 from '../../../images/kelsey/food/food5-min.jpeg'
+import food5 from '../../../images/kelsey/food/food888-min.jpeg'
+import food6 from '../../../images/kelsey/food/food6-min.jpeg'
 import history from "../../../history/History";
 import axios from "axios/index";
 
@@ -70,15 +69,15 @@ class P2BlogPost extends Component {
     }
 
     parseISOLocal(s) {
-        var b = s.split(/\D/);
-        var d = (new Date(b[0], b[1] - 1, b[2], b[3], b[4], b[5]));
+        const b = s.split(/\D/);
+        const d = (new Date(b[0], b[1] - 1, b[2], b[3], b[4], b[5]));
         return (MONTH_NAMES[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear())
     }
 
     setTags(response) {
-        var tags = '';
-        for (var i = 0; i < response.length; ++i) {
-            if (i == 0) {
+        let tags = '';
+        for (let i = 0; i < response.length; ++i) {
+            if (i === 0) {
                 tags = response[i].name.toUpperCase();
             }
             else {
@@ -90,7 +89,7 @@ class P2BlogPost extends Component {
 
     handleOnClick = () => {
         this.setState({redirect: 1});
-    }
+    };
 
     render() {
         axios.get(tagsurl + this.props.parentPassesPost.tags).then(
@@ -106,7 +105,7 @@ class P2BlogPost extends Component {
                 state: {referrer: this.props.parentPassesPost}
             }}/>);
         }
-        var html = this.props.parentPassesPost.excerpt.rendered;
+        let html = this.props.parentPassesPost.excerpt.rendered;
         html = html.replace("href", "class");
         return (
             <div>
@@ -130,13 +129,22 @@ class P2BlogPost extends Component {
                             margin: "10px", marginLeft: "0px"
                         }}
                                     color="black"
-                                    url="http://twitter.com/truffleandtulle"/>
+                                    url={"https://twitter.com/intent/tweet?text=Check%20Out%20This%20Post%20\"" + this.props.parentPassesPost.title.rendered + "\"On%20Truffle%20And%20Tulle%20At%20" +
+                                    "http://truffleandtulle.com/link?" + this.props.parentPassesPost.id}/>
                         <SocialIcon className="Sidebar-social" style={{width: "25px", height: "25px", margin: "10px"}}
                                     color="black"
                                     url="http://instagram.com/truffleandtulle"/>
                         <SocialIcon className="Sidebar-social" style={{width: "25px", height: "25px", margin: "10px"}}
                                     color="black"
-                                    url="http://facebook.com/truffleandtulle"/>
+                                    network="facebook"
+                                    url="http://#"
+                                    onClick={
+                                        () => window.open('https://www.facebook.com/sharer/sharer.php?u=' +
+                                            "www.truffleandtulle.com/link?" + this.props.parentPassesPost.id,
+                                            'facebook-share-dialog',
+                                            'width=626,height=436')
+                                    }
+                        />
                         <SocialIcon className="Sidebar-social" style={{width: "25px", height: "25px", margin: "10px"}}
                                     color="black"
                                     url="https://www.youtube.com/channel/UCg8AlYqRz_eAGH_TL9_kgOw"/>
@@ -190,7 +198,7 @@ class Carousel extends Component {
             stops: [
                 [-200, 0.85]
             ]
-        }]
+        }];
         return (
             <div>
                 <ViewPager className="P2-viewpager" tag="main">
@@ -238,8 +246,8 @@ class Carousel extends Component {
     }
 }
 
-var html = "<!-- LightWidget WIDGET --><script src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></script><iframe src=\"//lightwidget.com/widgets/d1b1279515ee5fcdb30d454042f510f5.html\" scrolling=\"auto\" allowtransparency=\"true\" " +
-    "class=\"lightwidget-widget\" style=\"width: 100%; height:800px; overflow:hidden; border: 0; \"></iframe>\n"
+let html = "<!-- LightWidget WIDGET --><script src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></script><iframe src=\"//lightwidget.com/widgets/d1b1279515ee5fcdb30d454042f510f5.html\" scrolling=\"auto\" allowtransparency=\"true\" " +
+    "class=\"lightwidget-widget\" style=\"width: 100%; height:800px; overflow:hidden; border: 0; \"></iframe>\n";
 
 class Portfolio extends Component {
     render() {
@@ -275,7 +283,6 @@ export class PageTwo extends Component {
             ).catch(e => {
                 console.log(e);
             });
-            ;
         }
         else {//Search URL
             axios.get(searchurl + this.state.query + "&per_page=" + 6 * nextProps.more).then(
@@ -283,7 +290,6 @@ export class PageTwo extends Component {
             ).catch(e => {
                 console.log(e);
             });
-            ;
         }
     }
 
@@ -310,9 +316,16 @@ export class PageTwo extends Component {
     };
 
     render() {
-        const BlogPosts = this.state.posts.map((d) => <P2BlogPost parentPassesPost={d}/>);
+        let style;
+        if (this.state.width > 0) {
+            style = {width: this.state.width + "px", height: this.state.height + "px", background: "#FFF"}
+        }
+        else {
+            style = {width: this.state.width + "px", height: "600px", background: "#FFF"};
+        }
+        const BlogPosts = this.state.posts.map((d, i) => <P2BlogPost parentPassesPost={d} key={i}/>);
         return (
-            <Scrollbars style={{background:"#FFF", width: this.state.width, height: this.state.height}}>
+            <Scrollbars style={style}>
                 <div className="pagetwo">
                     <div onClick={this.props.nextclick} style={{top: this.state.height * .47}}
                          className="right-arrow right-arrow_b animate bounce"/>

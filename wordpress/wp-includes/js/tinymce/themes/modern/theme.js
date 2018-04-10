@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce.themes.modern.Theme","global!window","tinymce.core.AddOnManager","tinymce.core.EditorManager","tinymce.core.Env","tinymce.core.ui.Api","tinymce.themes.modern.modes.Iframe","tinymce.themes.modern.modes.Inline","tinymce.themes.modern.ui.ProgressState","tinymce.themes.modern.ui.Resize","global!tinymce.util.Tools.resolve","tinymce.core.dom.DOMUtils","tinymce.core.ui.Factory","tinymce.core.util.Tools","tinymce.themes.modern.ui.A11y","tinymce.themes.modern.ui.Branding","tinymce.themes.modern.ui.ContextToolbars","tinymce.themes.modern.ui.Menubar","tinymce.themes.modern.ui.Sidebar","tinymce.themes.modern.ui.SkinLoaded","tinymce.themes.modern.ui.Toolbar","tinymce.core.ui.FloatPanel","tinymce.core.ui.Throbber","tinymce.core.util.Delay","tinymce.core.geom.Rect"]
+["tinymce.themes.modern.Theme","global!window","tinymce.core.AddOnManager","tinymce.core.EditorManager","tinymce.core.Env","tinymce.core.ui.Api","tinymce.themes.modern.modes.Iframe","tinymce.themes.modern.modes.Inline","tinymce.themes.modern.ui.ProgressState","tinymce.themes.modern.ui.Resize","global!tinymce.util.Tools.resolve","tinymce.core.dom.DOMUtils","tinymce.core.ui.Factory","tinymce.core.util.Tools","tinymce.themes.modern.ui.A11y","tinymce.themes.modern.ui.Branding","tinymce.themes.modern.ui.ContextToolbars","tinymce.themes.modern.ui.Menubar","tinymce.themes.modern.ui.SocialBar","tinymce.themes.modern.ui.SkinLoaded","tinymce.themes.modern.ui.Toolbar","tinymce.core.ui.FloatPanel","tinymce.core.ui.Throbber","tinymce.core.util.Delay","tinymce.core.geom.Rect"]
 jsc*/
 defineGlobal("global!window", window);
 defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
@@ -1054,7 +1054,7 @@ define(
 );
 
 /**
- * Sidebar.js
+ * SocialBar.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
@@ -1247,7 +1247,7 @@ define(
     'tinymce.themes.modern.ui.ContextToolbars',
     'tinymce.themes.modern.ui.Menubar',
     'tinymce.themes.modern.ui.Resize',
-    'tinymce.themes.modern.ui.Sidebar',
+    'tinymce.themes.modern.ui.SocialBar',
     'tinymce.themes.modern.ui.SkinLoaded',
     'tinymce.themes.modern.ui.Toolbar'
   ],

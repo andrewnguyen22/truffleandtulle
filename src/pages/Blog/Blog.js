@@ -159,10 +159,20 @@ class Page extends Component {
     };
 
     render() {
-        const tiles = this.state.posts.map((d) => <Tile parentPassesPost={d}/>);
+        let tiles = this.state.posts.map((d,i) => <Tile parentPassesPost={d} key={i}/>);
+        if(this.state.posts.length===0){
+            tiles = "I'm Sorry! No Results Found :("
+        }
+        let style;
+        if (this.state.width > 700) {
+            style = {width: this.state.width + "px", height: this.state.height-100 + "px"}
+        }
+        else {
+            style = {width: "100%", height: "600px"};
+        }
         return (
             <div>
-                <div className="Blog-page" style={{height: this.state.height - 100 + "px"}}>
+                <div className="Blog-page" style={style}>
                     <div className="Blog-page-inner">
                         <center>
                             <div className="Blog-header-title">TRUFFLE&TULLE</div>
