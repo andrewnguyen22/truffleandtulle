@@ -219,7 +219,7 @@ class Carousel extends Component {
 }
 
 // noinspection JSUnresolvedLibraryURL
-let html = "<!-- LightWidget WIDGET --><script src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></script><iframe src=\"//lightwidget.com/widgets/912390f049b95aef918de4782a8fabe5.html\" scrolling=\"auto\" allowtransparency=\"true\" " +
+let html = "<!-- LightWidget WIDGET --><script src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></script><iframe src=\"//lightwidget.com/widgets/e95aa8509cbc52dc8ac9ba47621b0f2f.html\" scrolling=\"auto\" allowtransparency=\"true\" " +
     "class=\"lightwidget-widget\" style=\"width: 100%; height:800px; overflow:hidden; border: 0; \"></iframe>\n";
 
 class Portfolio extends Component {
