@@ -5,10 +5,11 @@ import axios from "axios/index";
 import Footer from "../../footer/Footer";
 import history from "../../history/History";
 import Meta from '../../meta/Meta'
+
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
-const commentsurl = "http://8.9.5.159//wp-json/wp/v2/comments?post=";
+const commentsurl = "http://144.202.46.49/wp-json/wp/v2/comments?post=";
 let postid = 0;
 
 class Comment extends Component {
@@ -147,9 +148,9 @@ class Post extends Component {
         let post;
         if (this.props.location !== undefined) {
             post = this.props.location.state.referrer;
-            var state = {name: "http://localhost:3000/blog", page: 'Blog'};
+            var state = {name: "http://truffleandtulle.com/blog", page: 'Blog'};
             window.history.pushState(state,
-                "URL Rewrite", "http://localhost:3000/link?" +
+                "URL Rewrite", "http://truffleandtulle.com/link?" +
                 this.props.location.state.referrer.id);
             window.onpopstate = function (event) {
                 history.push('blog');
@@ -167,7 +168,7 @@ class Post extends Component {
                 <Meta title={post.rendered}
                       description={'A post from Truffle and Tulle. Called "' + post.title.rendered + '" tagged: ' + post.acf.tags}
                       image={post.better_featured_image.source_url}
-                      url={'truffleandtulle.com/link?'+post.id}/>
+                      url={'truffleandtulle.com/link?' + post.id}/>
                 <img alt="Featured From Post" className="Post-image" src={post.better_featured_image.source_url}/>
                 <h1 className="Post-title">{post.title.rendered}</h1>
                 <h3 className="Post-details">
