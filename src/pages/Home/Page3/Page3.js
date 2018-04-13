@@ -53,7 +53,7 @@ export class PageThree extends Component {
                             <div className="Youtube-primary-video">
                                 <iframe onLoad={this.handleYoutubeLoad} width="100%" title="youtube1"
                                         allowFullScreen='true' height="100%"
-                                        src="http://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=0&t=0"/>
+                                        src="https://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=0&t=0"/>
                             </div>
                         </div>
                         <div className="Youtube-column Youtube-column2"
@@ -62,28 +62,28 @@ export class PageThree extends Component {
                                 <div className="Youtube-primary-video">
                                     <iframe onLoad={this.handleYoutubeLoad} width="100%" title="youtube2"
                                             allowFullScreen='true' height="100%"
-                                            src="http://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=1&t=0"/>
+                                            src="https://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=1&t=0"/>
                                 </div>
                             </div>
                             <div className="Youtube-tile">
                                 <div className="Youtube-primary-video">
                                     <iframe onLoad={this.handleYoutubeLoad} width="100%" title="youtube3"
                                             allowFullScreen='true' height="100%"
-                                            src="http://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=2&t=0"/>
+                                            src="https://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=2&t=0"/>
                                 </div>
                             </div>
                             <div className="Youtube-tile">
                                 <div className="Youtube-primary-video">
                                     <iframe onLoad={this.handleYoutubeLoad} width="100%" title="youtube4"
                                             allowFullScreen="true" height="100%"
-                                            src="http://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=3&t=0"/>
+                                            src="https://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=3&t=0"/>
                                 </div>
                             </div>
                             <div className="Youtube-tile">
                                 <div className="Youtube-primary-video">
                                     <iframe onLoad={this.handleYoutubeLoad} width="100%" title="youtube5"
                                             allowFullScreen='true' height="100%"
-                                            src="http://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=4&t=0"/>
+                                            src="https://www.youtube.com/embed/videoseries?list=UUg8AlYqRz_eAGH_TL9_kgOw&index=4&t=0"/>
                                 </div>
                             </div>
                         </div>
