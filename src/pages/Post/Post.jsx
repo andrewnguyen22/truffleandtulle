@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
-
+import {Redirect} from 'react-router';
 import './Post.css'
 import axios from "axios/index";
 import Footer from "../../footer/Footer";
-
+import history from "../../history/History";
+import Meta from '../../meta/Meta'
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
-const commentsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/comments?post=";
-const tagsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/tags?include=";
+const commentsurl = "http://8.9.5.159//wp-json/wp/v2/comments?post=";
 let postid = 0;
 
 class Comment extends Component {
@@ -18,9 +18,9 @@ class Comment extends Component {
                 <h5 className="Comment-author">
                     {this.props.parentPassesComment.author_name}
                 </h5>
-                <h7 className="Comment-content"
+                <h6 className="Comment-content"
                     dangerouslySetInnerHTML={{__html: this.props.parentPassesComment.content.rendered}}>
-                </h7>
+                </h6>
             </div>
         );
     }
@@ -64,7 +64,6 @@ class Comments extends Component {
     }
 
     postComment(name, email, comment) {
-        console.log("CLICK");
         let commentstring = (
             postid + "&author_name=" + name + "&author_email=" + email + "&content=" + comment);
         axios.post(commentsurl + commentstring).then().catch(e => {
@@ -81,7 +80,7 @@ class Comments extends Component {
 
     render() {
         this.getComments();
-        const comments = this.state.retrievedComments.map((d,i) => <Comment parentPassesComment={d} key={i}/>);
+        const comments = this.state.retrievedComments.map((d, i) => <Comment parentPassesComment={d} key={i}/>);
         return (
             <div className="Comments-container">
                 <h1 className="Comments-title">
@@ -134,24 +133,8 @@ class Comments extends Component {
 }
 
 class Post extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tags: ''
-        };
-    }
-
-    setTags(response) {
-        let tags = '';
-        for (let i = 0; i < response.length; ++i) {
-            if (i === 0) {
-                tags = response[i].name;
-            }
-            else {
-                tags = tags + '+' + response[i].name;
-            }
-        }
-        this.setState({tags: tags});
+    componentDidMount() {
+        window.scrollTo(0, 0)
     }
 
     parseDate(s) {
@@ -162,26 +145,35 @@ class Post extends Component {
 
     render() {
         let post;
-        if (typeof this.props.location !== 'undefined') {
+        if (this.props.location !== undefined) {
             post = this.props.location.state.referrer;
+            var state = {name: "http://localhost:3000/blog", page: 'Blog'};
+            window.history.pushState(state,
+                "URL Rewrite", "http://localhost:3000/link?" +
+                this.props.location.state.referrer.id);
+            window.onpopstate = function (event) {
+                history.push('blog');
+                return (<Redirect to={{
+                    pathname: '/blog'
+                }}/>);
+            };
         }
-        else {
-            post = this.props.parentPassesPost;
+        else if (this.props.parentPassesPost !== undefined) {
+            post = this.props.parentPassesPost
         }
         postid = post.id;
-        axios.get(tagsurl + post.tags).then(
-            response => this.setTags(response.data)
-        ).catch(e => {
-            console.log(e);
-        });
         return (
             <div className="Post-container">
+                <Meta title={post.rendered}
+                      description={'A post from Truffle and Tulle. Called "' + post.title.rendered + '" tagged: ' + post.acf.tags}
+                      image={post.better_featured_image.source_url}
+                      url={'truffleandtulle.com/link?'+post.id}/>
                 <img alt="Featured From Post" className="Post-image" src={post.better_featured_image.source_url}/>
                 <h1 className="Post-title">{post.title.rendered}</h1>
                 <h3 className="Post-details">
                     <span className="Post-date">{this.parseDate(post.date)}</span>
                     <span className="Post-separator">/</span>
-                    <span className="Post-tags">{this.state.tags}</span>
+                    <span className="Post-tags">{post.acf.tags}</span>
                 </h3>
                 <div className="Post-content" dangerouslySetInnerHTML={{__html: post.content.rendered}}>
                 </div>

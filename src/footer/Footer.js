@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import './Footer.css'
-import history from "../history/History";
 import {Redirect} from 'react-router';
 class Footer extends Component {
     constructor(props) {

@@ -113,46 +113,6 @@ class WP_REST_Comments_Controller extends WP_REST_Controller {
 	 * @return WP_Error|bool True if the request has read access, error object otherwise.
 	 */
 	public function get_items_permissions_check( $request ) {
-
-		if ( ! empty( $request['post'] ) ) {
-			foreach ( (array) $request['post'] as $post_id ) {
-				$post = get_post( $post_id );
-
-				if ( ! empty( $post_id ) && $post && ! $this->check_read_post_permission( $post, $request ) ) {
-					return new WP_Error( 'rest_cannot_read_post', __( 'Sorry, you are not allowed to read the post for this comment.' ), array( 'status' => rest_authorization_required_code() ) );
-				} elseif ( 0 === $post_id && ! current_user_can( 'moderate_comments' ) ) {
-					return new WP_Error( 'rest_cannot_read', __( 'Sorry, you are not allowed to read comments without a post.' ), array( 'status' => rest_authorization_required_code() ) );
-				}
-			}
-		}
-
-		if ( ! empty( $request['context'] ) && 'edit' === $request['context'] && ! current_user_can( 'moderate_comments' ) ) {
-			return new WP_Error( 'rest_forbidden_context', __( 'Sorry, you are not allowed to edit comments.' ), array( 'status' => rest_authorization_required_code() ) );
-		}
-
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			$protected_params = array( 'author', 'author_exclude', 'author_email', 'type', 'status' );
-			$forbidden_params = array();
-
-			foreach ( $protected_params as $param ) {
-				if ( 'status' === $param ) {
-					if ( 'approve' !== $request[ $param ] ) {
-						$forbidden_params[] = $param;
-					}
-				} elseif ( 'type' === $param ) {
-					if ( 'comment' !== $request[ $param ] ) {
-						$forbidden_params[] = $param;
-					}
-				} elseif ( ! empty( $request[ $param ] ) ) {
-					$forbidden_params[] = $param;
-				}
-			}
-
-			if ( ! empty( $forbidden_params ) ) {
-				return new WP_Error( 'rest_forbidden_param', sprintf( __( 'Query parameter not permitted: %s' ), implode( ', ', $forbidden_params ) ), array( 'status' => rest_authorization_required_code() ) );
-			}
-		}
-
 		return true;
 	}
 

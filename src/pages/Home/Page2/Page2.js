@@ -20,14 +20,7 @@ import food4 from '../../../images/kelsey/food/food5-min.jpeg'
 import food5 from '../../../images/kelsey/food/food888-min.jpeg'
 import food6 from '../../../images/kelsey/food/food6-min.jpeg'
 import history from "../../../history/History";
-import axios from "axios/index";
 
-const searchurl = "http://localhost:8888/wordpress/wp-json/wp/v2/posts?search=";
-const wordpressurl = "http://localhost:8888/wordpress/wp-json/wp/v2/posts?_embed";
-const tagsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/tags?include=";
-const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
 const kelseyImages = [
     kelsey0,
     kelsey1,
@@ -68,35 +61,11 @@ class P2BlogPost extends Component {
         this.setState({width: window.innerWidth, height: window.innerHeight});
     }
 
-    parseISOLocal(s) {
-        const b = s.split(/\D/);
-        const d = (new Date(b[0], b[1] - 1, b[2], b[3], b[4], b[5]));
-        return (MONTH_NAMES[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear())
-    }
-
-    setTags(response) {
-        let tags = '';
-        for (let i = 0; i < response.length; ++i) {
-            if (i === 0) {
-                tags = response[i].name.toUpperCase();
-            }
-            else {
-                tags = tags + ' + ' + response[i].name.toUpperCase();
-            }
-        }
-        this.setState({tags: tags});
-    }
-
     handleOnClick = () => {
         this.setState({redirect: 1});
     };
 
     render() {
-        axios.get(tagsurl + this.props.parentPassesPost.tags).then(
-            response => this.setTags(response.data)
-        ).catch(e => {
-            console.log(e);
-        });
         if (this.state.redirect === 1) {
             this.setState({redirect: 0});
             history.push('/blog');
@@ -105,8 +74,10 @@ class P2BlogPost extends Component {
                 state: {referrer: this.props.parentPassesPost}
             }}/>);
         }
+        // noinspection JSUnresolvedVariable
         let html = this.props.parentPassesPost.excerpt.rendered;
         html = html.replace("href", "class");
+        // noinspection JSUnresolvedVariable
         return (
             <div>
                 <hr/>
@@ -118,7 +89,7 @@ class P2BlogPost extends Component {
                              this.props.parentPassesPost.better_featured_image.source_url + ')'
                          }}/>
                     <h1>{this.props.parentPassesPost.title.rendered}</h1>
-                    <p className="Preview-date">{this.parseISOLocal(this.props.parentPassesPost.date)}</p>
+                    <p className="Preview-date">{this.props.parseDate(this.props.parentPassesPost.date)}</p>
                     <div className="Preview-text" dangerouslySetInnerHTML={{__html: html}}>
 
                     </div>
@@ -199,6 +170,7 @@ class Carousel extends Component {
                 [-200, 0.85]
             ]
         }];
+        // noinspection HtmlDeprecatedTag
         return (
             <div>
                 <ViewPager className="P2-viewpager" tag="main">
@@ -246,7 +218,8 @@ class Carousel extends Component {
     }
 }
 
-let html = "<!-- LightWidget WIDGET --><script src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></script><iframe src=\"//lightwidget.com/widgets/d1b1279515ee5fcdb30d454042f510f5.html\" scrolling=\"auto\" allowtransparency=\"true\" " +
+// noinspection JSUnresolvedLibraryURL
+let html = "<!-- LightWidget WIDGET --><script src=\"https://cdn.lightwidget.com/widgets/lightwidget.js\"></script><iframe src=\"//lightwidget.com/widgets/912390f049b95aef918de4782a8fabe5.html\" scrolling=\"auto\" allowtransparency=\"true\" " +
     "class=\"lightwidget-widget\" style=\"width: 100%; height:800px; overflow:hidden; border: 0; \"></iframe>\n";
 
 class Portfolio extends Component {
@@ -261,35 +234,25 @@ class Portfolio extends Component {
 export class PageTwo extends Component {
     constructor(props) {
         super(props);
-        this.state = {width: 0, height: 0, pics: 3, posts: [], currentURL: wordpressurl, query: ''};
+        this.state = {width: 0, height: 0, pics: 3, posts: [], query: ''};
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.setParentPosts = this.setParentPosts.bind(this);
     }
 
     componentDidMount() {
-        axios.get(wordpressurl + "&per_page=" + 6).then(
-            response => this.setState({posts: response.data})
-        ).catch(e => {
-            console.log(e);
-        });
+        if (this.props.posts !== undefined) {
+            this.setState({
+                posts: this.props.posts
+            })
+        }
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.currentURL === wordpressurl) {
-            axios.get(wordpressurl + "&per_page=" + 6 * nextProps.more).then(
-                response => this.setState({posts: response.data})
-            ).catch(e => {
-                console.log(e);
-            });
-        }
-        else {//Search URL
-            axios.get(searchurl + this.state.query + "&per_page=" + 6 * nextProps.more).then(
-                response => this.setState({posts: response.data})
-            ).catch(e => {
-                console.log(e);
-            });
+        if (nextProps.posts !== undefined) {
+            this.setState({
+                posts: nextProps.posts
+            })
         }
     }
 
@@ -307,14 +270,6 @@ export class PageTwo extends Component {
 
     }
 
-    setParentPosts(data) {
-        axios.get(searchurl + data + "&per_page=" + 6).then(
-            response => this.setState({query: data, posts: response.data, currentURL: searchurl})
-        ).catch(e => {
-            console.log(e);
-        });
-    };
-
     render() {
         let style;
         if (this.state.width > 0) {
@@ -323,7 +278,7 @@ export class PageTwo extends Component {
         else {
             style = {width: this.state.width + "px", height: "600px", background: "#FFF"};
         }
-        const BlogPosts = this.state.posts.map((d, i) => <P2BlogPost parentPassesPost={d} key={i}/>);
+        const BlogPosts = this.props.posts.map((d, i) => <P2BlogPost {...this.props} parentPassesPost={d} key={i}/>);
         return (
             <Scrollbars style={style}>
                 <div className="pagetwo">
