@@ -1,27 +1,20 @@
 import React, {Component} from 'react'
 import './Home.css'
 import Footer from "../../footer/Footer"
-import {Parallax, Background} from 'react-parallax';
+import {Parallax} from 'react-parallax';
 import {ViewPager, Frame, Track, View} from 'react-view-pager'
 import {SocialIcon} from 'react-social-icons';
 import {PageTwo} from './Page2/Page2'
 import {PageThree} from './Page3/Page3'
 import {PageFour} from './Page4/Page4'
 import '../../animations/animate.css'
-//TODO PAGE 4 make responsive and search
-//TODO Social Media Share Posts Buttons on Page2 -> Update on Post Page
-//TODO add in 'no results found for 0 results returned'
-//TODO COMPRESS ALL WEBSITE IMAGES
-//TODO FIX MOBILE BUG (Height resize)
-//TODO PROGRESS BAR | LOAD PERFORMANCE
-//TODO REMOVE ALL ERRORS AND WARNINGS FROM JS
-//TODO MAKE INSTAGRAM | YOUTUBE | FACEBOOK POINT TO CORRECT LOCATION
-//TODO BUY DOMAIN & HOSTING
-//TODO DEPLOY On AWS
-class Sidebar extends Component {
+import Meta from '../../meta/Meta'
+import seoImage from '../../images/icons/TRUFFLE&TULLE_lg.png'
+
+class SocialBar extends Component {
     constructor(props) {
         super(props);
-        this.state = {width: 0, height: 0};
+        this.state = {width: 0};
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
@@ -35,7 +28,7 @@ class Sidebar extends Component {
     }
 
     updateWindowDimensions() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
+        this.setState({width: window.innerWidth});
     }
 
     render() {
@@ -68,6 +61,7 @@ class Header extends Component {
         super(props);
         this.state = {width: 0, height: 0, loading: true};
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.handleLoaded = this.handleLoaded.bind(this)
     }
 
     componentDidMount() {
@@ -83,18 +77,37 @@ class Header extends Component {
         this.setState({width: window.innerWidth, height: window.innerHeight});
     }
 
+    handleLoaded() {
+        for (let i = 0; i < 3; ++i)
+            this.props.nextclick();
+        for (let i = 0; i < 3; ++i)
+            this.props.prevclick();
+        this.props.doneLoading()
+    }
+
     render() {
+        let style;
+        if (this.state.width > 700) {
+            style = {width: this.state.width + "px", height: this.state.height + "px"};
+        }
+        else {
+            style = {width: "100%", height: "600px"};
+        }
         return (
             <div>
+                <div className='preload'>
+                    <img src={require('../../images/kelsey/kelsey7-min.jpeg')} onLoad={this.handleLoaded}
+                         alt='invisible'/>
+                </div>
                 <Parallax
                     className="header"
                     slowerScrollRate="true"
                     bgImage={require('../../images/kelsey/kelsey7-min.jpeg')}
                     bgImageAlt="kelsey"
-                    bgStyle={{marginTop: "20px"}}
-                    strength={200}
+                    bgStyle={{marginTop: "100px"}}
+                    strength={100}
                 >
-                    <div style={{width: this.state.width + "px", height: this.state.height + "px"}}>
+                    <div style={style}>
                         <h1>TrufflexTulle</h1>
 
                         <div className="right-arrow animated wobble" onClick={this.props.nextclick}
@@ -110,22 +123,41 @@ class Header extends Component {
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {loading: true};
+        this.state = {props: '', width: 0, height: 0, loading: true, viewpager: ''};
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
-    handleLoaded() {
-        this.setState({
-            loading: false
-        });
-    }
-    componentDidMount(){
-
+    componentWillMount() {
+        this.props.setOnHome(true);
     }
 
-    render() {
-        return (
-            <div>
-                <ViewPager tag="main">
+    componentDidMount() {
+        window.scrollTo(0, 0);
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+        this.props.setOnHome(false);
+        this.props.youtubeLoaded(false);
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({props: props});
+        this.updateWindowDimensions()
+    }
+
+    updateWindowDimensions() {
+        let passProps;
+        if (this.state.props !== undefined && this.state.props !== '')
+            passProps = this.state.props;
+        else {
+            passProps = {...this.props};
+        }
+        if (window.innerWidth > 700) {
+            this.setState({
+                viewpager: <ViewPager tag="main">
                     <Frame className="frame">
                         <Track
                             ref={c => this.track = c}
@@ -133,21 +165,66 @@ class Home extends Component {
                             className="track"
                         >
                             <View className="view">
-                                <Sidebar/>
-                                <Header nextclick={() => this.track.next()}/>
+                                <SocialBar/>
+                                <Header {...passProps} nextclick={() => this.track.next()}
+                                        prevclick={() => this.track.prev()}/>
                             </View>
                             <View className="view">
-                                <PageTwo nextclick={() => this.track.next()} prevclick={() => this.track.prev()}/>
+                                <PageTwo {...passProps} nextclick={() => this.track.next()}
+                                         prevclick={() => this.track.prev()}/>
                             </View>
                             <View className="view">
-                                <PageThree nextclick={() => this.track.next()} prevclick={() => this.track.prev()}/>
+                                <PageThree {...passProps} nextclick={() => this.track.next()}
+                                           prevclick={() => this.track.prev()}/>
                             </View>
                             <View className="view">
-                                <PageFour nextclick={() => this.track.next()} prevclick={() => this.track.prev()}/>
+                                <PageFour {...passProps} nextclick={() => this.track.next()}
+                                          prevclick={() => this.track.prev()}/>
                             </View>
                         </Track>
                     </Frame>
-                </ViewPager>
+                </ViewPager>,
+                width: window.innerWidth, height: window.innerHeight
+            });
+        } else {
+            this.setState({
+                viewpager: <ViewPager tag="main">
+                    <Frame className="frame">
+                        <Track
+                            ref={c => this.track = c}
+                            viewsToShow={1}
+                            className="track"
+                        >
+                            <View className="view">
+                                <SocialBar/>
+                                <Header {...passProps} nextclick={() => this.track.next()}
+                                        prevclick={() => this.track.prev()}/>
+                            </View>
+                            <View className="view">
+                                <PageFour {...passProps} nextclick={() => this.track.next()}
+                                          prevclick={() => this.track.prev()}/>
+                            </View>
+                            <View className="view">
+                                <PageThree {...passProps} nextclick={() => this.track.next()}
+                                           prevclick={() => this.track.prev()}/>
+                            </View>
+                        </Track>
+                    </Frame>
+                </ViewPager>,
+                width: window.innerWidth, height: window.innerHeight
+            });
+        }
+
+    }
+
+    render() {
+        const description = 'Welcome to the homepage of Truffle&Tulle. ' +
+            'Here you will find the latest posts, recipes, and photos.' +
+            'I hope you enjoy my blog, you are always welcome here!'
+        return (
+            <div>
+                <Meta title='Home' description={description} image={seoImage} url='truffleandtulle.com/'/>
+                {this.state.viewpager}
                 <Footer/>
             </div>
         );

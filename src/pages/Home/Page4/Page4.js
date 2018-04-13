@@ -1,12 +1,8 @@
 import React, {Component} from 'react'
-import {Parallax, Background} from 'react-parallax';
 import {Scrollbars} from 'react-custom-scrollbars';
 import './Page4.css'
 import axios from "axios/index";
 
-const searchurl = "http://localhost:8888/wordpress/wp-json/wp/v2/posts?categories=10&search";
-const wordpressurl = "http://localhost:8888/wordpress/wp-json/wp/v2/posts?";
-const tagsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/tags?include=";
 class SearchBar extends Component {
     constructor(props) {
         super(props);
@@ -19,10 +15,11 @@ class SearchBar extends Component {
 
     submitHandler(evt) {
         evt.preventDefault();
-        this.props.setParentPosts(this.state.inputField)
+        this.props.setParentPosts(this.state.inputField);
         this.setState({
             inputField: ''
         });
+        this.refs.input1.value='';
     }
 
     handleChange(event) {
@@ -37,6 +34,7 @@ class SearchBar extends Component {
                 <form className="P4-searchbar-form" onSubmit={e => e.preventDefault()}>
                     <input className="P4-searchbar-input"
                            placeholder='Search My Recipes'
+                           ref='input1'
                            onChange={this.handleChange}/>
                     <button className="P4-searchbar-button"
                             type='submit'
@@ -52,73 +50,29 @@ class SearchBar extends Component {
 class Recipe extends Component {
     constructor(props) {
         super(props);
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.state = {
-            width: 0,
-            height: 0,
-            tags: '',
             redirect: 0,
-            recipeurl: ''
         };
-    }
-
-    componentDidMount() {
-        this.setRecipeUrl(this.props.parentPassesPost.content.rendered)
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
-    }
-
-    setTags(response) {
-        var tags = '';
-        for (var i = 0; i < response.length; ++i) {
-            if (i == 0) {
-                tags = response[i].name.toUpperCase();
-            }
-            else {
-                tags = tags + ' + ' + response[i].name.toUpperCase();
-            }
-        }
-        this.setState({tags: tags});
     }
 
     handleOnClick = () => {
         this.setState({redirect: 1});
-    }
+    };
 
-    setRecipeUrl = (recipe) => {
-        const res = recipe.toString().split("\"");
-        for (var i = 0; i < res.length; ++i) {
-            console.log(res[i])
-            if (res[i].includes(".pdf") && res[i].includes("http")) {
-                this.setState({recipeurl: res[i]})
-            }
-        }
-    }
+    // noinspection JSMethodCanBeStatic
     openInNewTab(url) {
-        var win = window.open(url, '_blank');
+        const win = window.open(url, '_blank');
         win.focus();
     }
+
     render() {
-        axios.get(tagsurl + this.props.parentPassesPost.tags).then(
-            response => this.setTags(response.data)
-        ).catch(e => {
-            console.log(e);
-        });
-        var title = this.props.parentPassesPost.title.rendered.toString().substr(0, 20)
-        var shortenedTitle = title.substr(0, Math.min(title.length, title.lastIndexOf(" ")));
+        const title = this.props.parentPassesPost.title.rendered.toString().substr(0, 20);
+        let shortenedTitle = title.substr(0, Math.min(title.length, title.lastIndexOf(" ")));
         if (title.length >= 19)
             shortenedTitle += "...";
         if (this.state.redirect === 1) {
             this.setState({redirect: 0});
-            this.openInNewTab(this.state.recipeurl)
+            this.openInNewTab(this.props.parentPassesPost.acf.recipe)
         }
 
         return (
@@ -130,7 +84,7 @@ class Recipe extends Component {
                      }}/>
                 <h1>{shortenedTitle}</h1>
                 <div className="Recipe-categories">
-                    <h3>{this.state.tags}</h3>
+                    <h3>{this.props.parentPassesPost.acf.tags}</h3>
                 </div>
             </div>
         );
@@ -140,61 +94,70 @@ class Recipe extends Component {
 class RecipeBox extends Component {
     constructor(props) {
         super(props);
-        this.state = {width: 0, height: 0, posts: [], currentURL: wordpressurl, query: ''};
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.state = {posts: [], currentURL: '', query: ''};
         this.setParentPosts = this.setParentPosts.bind(this);
     }
 
     componentDidMount() {
-        axios.get(wordpressurl + "&per_page=" + 6).then(
+        this.setState({posts: this.props.recipes})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //Receive Initial 6 posts from parent
+        if (nextProps.recipes !== undefined && nextProps.more === undefined) {
+            this.setState({posts: nextProps.recipes, currentURL: this.props.recurl})
+        }
+        //Load More If More Button Pressed
+        else if (this.state.currentURL === this.props.recurl && nextProps.more !== undefined) {
+            this.more(nextProps);
+        }
+        //Search On Page If Button Pressed
+        else {
+            this.search(nextProps);
+        }
+    }
+
+    /**
+     * Function to load more
+     */
+    more(props) {
+        axios.get(this.props.recurl + "&per_page=" + 6 * props.more).then(
             response => this.setState({posts: response.data})
         ).catch(e => {
             console.log(e);
         });
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.state.currentURL === wordpressurl) {
-            axios.get(wordpressurl + "&per_page=" + 6 * nextProps.more).then(
-                response => this.setState({posts: response.data})
-            ).catch(e => {
-                console.log(e);
-            });
-            ;
-        }
-        else {//Search URL
-            axios.get(searchurl + this.state.query + "&per_page=" + 6 * nextProps.more).then(
-                response => this.setState({posts: response.data})
-            ).catch(e => {
-                console.log(e);
-            });
-            ;
-        }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
+    /**
+     * Function to search
+     */
+    search(props) {
+        axios.get(this.props.rsearchurl + this.state.query + "&per_page=" + 6 * props.more).then(
+            response => this.setState({posts: response.data})
+        ).catch(e => {
+            console.log(e);
+        });
     }
 
     setParentPosts(data) {
-        axios.get(searchurl + data + "&per_page=" + 6).then(
-            response => this.setState({query: data, posts: response.data, currentURL: searchurl})
+        axios.get(this.props.rsearchurl + data + "&per_page=" + 6).then(
+            response => this.setState({query: data, posts: response.data, currentURL: this.props.rsearchurl})
         ).catch(e => {
             console.log(e);
         });
     };
 
     render() {
-        const tiles = this.state.posts.map((d) => <Recipe parentPassesPost={d}/>);
+        let tiles = this.state.posts.map((d, i) => <Recipe {...this.props} parentPassesPost={d} key={i}/>);
+        if (this.state.posts.length === 0) {
+            tiles = "I'm Sorry! No Results Found :("
+        }
         return (
-            <div className="Recipe-box">
-                {tiles}
+            <div>
+                <SearchBar {...this.props} setParentPosts={this.setParentPosts}/>
+                <div className="Recipe-box">
+                    {tiles}
+                </div>
             </div>
         );
     }
@@ -203,8 +166,13 @@ class RecipeBox extends Component {
 export class PageFour extends Component {
     constructor(props) {
         super(props);
-        this.state = {width: 0, height: 0};
+        this.state = {width: 0, height: 0,redirect: 0, more:1};
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.morePosts = this.morePosts.bind(this);
+    }
+
+    morePosts() {
+        this.setState({more: this.state.more + 1});
     }
 
     componentDidMount() {
@@ -221,16 +189,27 @@ export class PageFour extends Component {
     }
 
     render() {
+        let style;
+        if (this.state.width > 700) {
+            style = {width: this.state.width + "px", height: this.state.height + "px"}
+        }
+        else {
+            style = {width: "100%", height: "600px"};
+        }
         return (
-            <Scrollbars style={{width: this.state.width, height: this.state.height}}>
+            <Scrollbars style={style}>
                 <div className="pagefour">
                     <div onClick={this.props.prevclick} style={{top: this.state.height * .47}}
                          className="left-arrow left-arrow_b animate bounce"/>
                     <h1>TRUFFLE&TULLE</h1>
                     <hr/>
                     <h3>The Recipes.</h3>
-                    <SearchBar/>
-                    <RecipeBox/>
+                    <RecipeBox {...this.props} more={this.state.more}/>
+                    <center>
+                        <button className="Blog-load-more-button" onClick={this.morePosts}>
+                            LOAD MORE
+                        </button>
+                    </center>
                 </div>
             </Scrollbars>
         );

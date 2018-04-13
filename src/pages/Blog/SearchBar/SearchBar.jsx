@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import './SearchBar.css'
 class SearchBar extends Component {
     constructor(props ) {
@@ -13,7 +12,8 @@ class SearchBar extends Component {
 
     submitHandler(evt) {
         evt.preventDefault();
-        this.props.setParentPosts(this.state.inputField)
+        this.props.setParentPosts(this.state.inputField);
+        this.refs.input1.value='';
         this.setState({
             inputField: ''
         });
@@ -29,7 +29,8 @@ class SearchBar extends Component {
         return (
             <div className='searchbar-container'>
                 <form className = "Searchbar-form" onSubmit={e => e.preventDefault()}>
-                    <input className="Searchbar-input"
+                    <input ref="input1"
+                           className="Searchbar-input"
                            placeholder='Search My Posts'
                            onChange={this.handleChange}/>
                     <button className="Searchbar-button"

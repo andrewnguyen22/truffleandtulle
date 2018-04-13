@@ -5,68 +5,22 @@ import axios from 'axios'
 import {Redirect} from 'react-router';
 import history from '../../history/History'
 import SearchBar from './SearchBar/SearchBar'
-
-const searchurl = "http://localhost:8888/wordpress/wp-json/wp/v2/posts?search=";
-const wordpressurl = "http://localhost:8888/wordpress/wp-json/wp/v2/posts?_embed";
-const tagsurl = "http://localhost:8888/wordpress/wp-json/wp/v2/tags?include=";
-const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-
+import seoImage from '../../images/kelsey/kelsey28-min.jpeg'
+import Meta from '../../meta/Meta'
 class Tile extends Component {
-    constructor(props) {
-        super(props);
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    constructor() {
+        super();
         this.state = {
-            width: 0,
-            height: 0,
-            tags: '',
             redirect: 0
         };
     }
 
-    componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
-    }
-
-    parseISOLocal(s) {
-        var b = s.split(/\D/);
-        var d = (new Date(b[0], b[1] - 1, b[2], b[3], b[4], b[5]));
-        return (MONTH_NAMES[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear())
-    }
-
-    setTags(response) {
-        var tags = '';
-        for (var i = 0; i < response.length; ++i) {
-            if (i == 0) {
-                tags = response[i].name.toUpperCase();
-            }
-            else {
-                tags = tags + ' + ' + response[i].name.toUpperCase();
-            }
-        }
-        this.setState({tags: tags});
-    }
-
     handleOnClick = () => {
         this.setState({redirect: 1});
-    }
+    };
+
 
     render() {
-        axios.get(tagsurl + this.props.parentPassesPost.tags).then(
-            response => this.setTags(response.data)
-        ).catch(e => {
-            console.log(e);
-        });
         if (this.state.redirect === 1) {
             this.setState({redirect: 0});
             history.push('/blog');
@@ -79,7 +33,8 @@ class Tile extends Component {
             <div className="Blog-tile" onClick={this.handleOnClick}>
                 <div className="Blog-tile-content">
                     <div className="Blog-img-container">
-                        <img src={this.props.parentPassesPost.better_featured_image.source_url} className="Blog-img"/>
+                        <img alt="Featured" src={this.props.parentPassesPost.better_featured_image.source_url}
+                             className="Blog-img"/>
                     </div>
                     <div className="Blog-title-container">
                         <h1 className="Blog-title">{this.props.parentPassesPost.title.rendered}</h1>
@@ -87,18 +42,15 @@ class Tile extends Component {
                     <div className="Blog-details-container">
                         <h3 className="Blog-details">
                     <span className="Blog-date">
-                        {this.parseISOLocal(this.props.parentPassesPost.date)}
+                        {this.props.parseDate(this.props.parentPassesPost.date)}
                     </span>
                         </h3>
                     </div>
                     <div className="Blog-tags-container">
                         <span className="Blog-tags">
-                            {this.state.tags}
+                            {this.props.parentPassesPost.acf.tags}
                             </span>
                     </div>
-                    {/*<div className="Blog-readthispost-container">*/}
-                        {/*<h3 className="Blog-readthispost">Read This Post</h3>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         );
@@ -108,37 +60,40 @@ class Tile extends Component {
 class Page extends Component {
     constructor(props) {
         super(props);
-        this.state = {width: 0, height: 0, posts: [], currentURL: wordpressurl, query: ''};
+        this.state = {width: 0, height: 0, posts: [], currentURL: '', query: ''};
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.setParentPosts = this.setParentPosts.bind(this);
     }
 
     componentDidMount() {
-        axios.get(wordpressurl + "&per_page=" + 6).then(
-            response => this.setState({posts: response.data})
-        ).catch(e => {
-            console.log(e);
-        });
+        //Receive Initial 6 posts from parent
+        if (this.props.posts !== undefined && this.props.more === undefined) {
+            this.setState({posts: this.props.posts, currentURL: this.props.wpurl})
+        }
+        //Load More If More Button Pressed
+        else if (this.state.currentURL === this.props.wpurl && this.props.more !== undefined) {
+            this.more(this.props);
+        }
+        //Search On Page If Button Pressed
+        else {
+            this.search(this.props);
+        }
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.state.currentURL === wordpressurl) {
-            axios.get(wordpressurl + "&per_page=" + 6 * nextProps.more).then(
-                response => this.setState({posts: response.data})
-            ).catch(e => {
-                console.log(e);
-            });
-            ;
+        //Receive Initial 6 posts from parent
+        if (nextProps.posts !== undefined && nextProps.more === undefined) {
+            this.setState({posts: nextProps.posts, currentURL: this.props.wpurl})
         }
-        else {//Search URL
-            axios.get(searchurl + this.state.query + "&per_page=" + 6 * nextProps.more).then(
-                response => this.setState({posts: response.data})
-            ).catch(e => {
-                console.log(e);
-            });
-            ;
+        //Load More If More Button Pressed
+        else if (this.state.currentURL === this.props.wpurl && nextProps.more !== undefined) {
+            this.more(nextProps);
+        }
+        //Search On Page If Button Pressed
+        else {
+            this.search(nextProps);
         }
     }
 
@@ -150,23 +105,55 @@ class Page extends Component {
         this.setState({width: window.innerWidth, height: window.innerHeight});
     }
 
+    /**
+     * Function to load more
+     */
+    more(props) {
+        axios.get(this.props.wpurl + "&per_page=" + 6 * props.more).then(
+            response => this.setState({posts: response.data})
+        ).catch(e => {
+            console.log(e);
+        });
+    }
+
+    /**
+     * Function to search
+     */
+    search(props) {
+        axios.get(this.props.searchurl + this.state.query + "&per_page=" + 6 * props.more).then(
+            response => this.setState({posts: response.data})
+        ).catch(e => {
+            console.log(e);
+        });
+    }
+
     setParentPosts(data) {
-        axios.get(searchurl + data + "&per_page=" + 6).then(
-            response => this.setState({query: data, posts: response.data, currentURL: searchurl})
+        axios.get(this.props.searchurl + data + "&per_page=" + 6).then(
+            response => this.setState({query: data, posts: response.data, currentURL: this.props.searchurl})
         ).catch(e => {
             console.log(e);
         });
     };
 
     render() {
-        const tiles = this.state.posts.map((d) => <Tile parentPassesPost={d}/>);
+        let tiles = this.state.posts.map((d, i) => <Tile {...this.props} parentPassesPost={d} key={i}/>);
+        if (this.state.posts.length === 0) {
+            tiles = "I'm Sorry! No Results Found :("
+        }
+        let style;
+        if (this.state.width > 700) {
+            style = {width: this.state.width + "px", height: this.state.height - 100 + "px"}
+        }
+        else {
+            style = {width: "100%", height: "600px"};
+        }
         return (
             <div>
-                <div className="Blog-page" style={{height: this.state.height - 100 + "px"}}>
+                <div className="Blog-page" style={style}>
                     <div className="Blog-page-inner">
                         <center>
                             <div className="Blog-header-title">TRUFFLE&TULLE</div>
-                            <hr />
+                            <hr/>
                             <h3 className="Blog-header-subtitle">The Blog.</h3>
                         </center>
                         <SearchBar setParentPosts={this.setParentPosts}/>
@@ -189,15 +176,36 @@ class Blog extends Component {
         this.morePosts = this.morePosts.bind(this);
     }
 
+    componentWillMount() {
+        this.props.startLoading();
+        this.props.setOnBlog(true);
+        console.log('will mount')
+    }
+
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     morePosts() {
         this.setState({more: this.state.more + 1});
-        console.log(this.state.more)
+    }
+
+    componentWillUnmount() {
+        this.props.setOnBlog(false);
     }
 
     render() {
+        if (this.props.posts.length !== 0) {
+            this.props.doneLoading()
+        }
+        const description = 'Welcome to the blog page of Truffle and Tulle. It is here where you will find my latest blog' +
+            'posts consisting of many delightful recipes as well as stories to accompany them. I' +
+            'hope you enjoy this blog and I promise to my readers to always keep it real, ' +
+            'because that is what baking is about! '
         return (
             <div className="Blog-container">
-                <Page more={this.state.more}/>
+                <Meta title='Blog' description={description} image={seoImage} url='truffleandtulle.com/blog'/>
+                <Page {...this.props} more={this.state.more}/>
                 <center>
                     <button className="Blog-load-more-button" onClick={this.morePosts}>
                         LOAD MORE

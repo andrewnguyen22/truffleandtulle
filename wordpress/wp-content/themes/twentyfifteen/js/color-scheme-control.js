@@ -30,13 +30,13 @@
 						.data( 'data-default-color', colorScheme[value].colors[0] )
 						.wpColorPicker( 'defaultColor', colorScheme[value].colors[0] );
 
-					// Update Header/Sidebar Background Color.
+					// Update Header/SocialBar Background Color.
 					api( 'header_background_color' ).set( colorScheme[value].colors[1] );
 					api.control( 'header_background_color' ).container.find( '.color-picker-hex' )
 						.data( 'data-default-color', colorScheme[value].colors[1] )
 						.wpColorPicker( 'defaultColor', colorScheme[value].colors[1] );
 
-					// Update Header/Sidebar Text Color.
+					// Update Header/SocialBar Text Color.
 					api( 'sidebar_textcolor' ).set( colorScheme[value].colors[4] );
 					api.control( 'sidebar_textcolor' ).container.find( '.color-picker-hex' )
 						.data( 'data-default-color', colorScheme[value].colors[4] )

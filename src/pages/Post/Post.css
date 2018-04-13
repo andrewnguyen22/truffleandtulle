@@ -47,6 +47,7 @@
 
 }
 .Post-content{
+    overflow:hidden;
     width:50%;
     text-align:justify;
     display:block;

@@ -1,28 +1,15 @@
 import React, {Component} from 'react'
 import Footer from '../../footer/Footer'
-import ReactDOM from 'react-dom'
 import './About.css'
+import Meta from '../../meta/Meta'
 import kelsey1 from '../../images/kelsey/kelsey12-min.jpeg'
 import kelsey2 from '../../images/kelsey/kelsey21-min.jpeg'
 import kelsey3 from '../../images/kelsey/kelsey6-min.jpeg'
 import kelsey4 from '../../images/kelsey/kelsey16-min.jpeg'
 import kelsey5 from '../../images/kelsey/kelsey22-min.jpeg'
 import kelsey6 from '../../images/kelsey/kelsey14-min.jpeg'
-
-const imgUrls = [
-    kelsey1,
-    kelsey2,
-    kelsey3,
-    kelsey4,
-    kelsey5,
-    kelsey6
-];
-
+import seoImage from '../../images/kelsey/kelsey24-min.jpeg'
 class GalleryTile extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="gallery-grid-tile">
@@ -145,9 +132,17 @@ class Content extends Component {
 }
 
 class About extends Component {
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     render() {
+        const description = 'Welcome to the about page of Truffle and Tulle. It is here where you will find ' +
+            'a page dedicated to me, containing an interesting paragraph about my philosophy! ' +
+            'I hope you have as much fun reading this page as I did writing it!';
         return (
             <div className="About-container">
+                <Meta title='About' description={description} image={seoImage} url='truffleandtulle.com/about'/>
                 <Header/>
                 <Content/>
                 <Footer/>

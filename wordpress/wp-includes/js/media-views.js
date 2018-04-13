@@ -5880,7 +5880,7 @@ module.exports = Router;
 /***/ (function(module, exports) {
 
 /**
- * wp.media.view.Sidebar
+ * wp.media.view.SocialBar
  *
  * @memberOf wp.media.view
  *
