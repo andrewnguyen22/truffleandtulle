@@ -4,7 +4,7 @@ import './Link.css'
 import axios from "axios/index";
 import Post from "../Post/Post";
 
-const wordpressurl = "http://144.202.46.49/wp-json/wp/v2/posts?include[]=";
+const wordpressurl = "https://truffleandtulle.site/wp-json/wp/v2/posts?include[]=";
 
 class Link extends Component {
     constructor(props) {

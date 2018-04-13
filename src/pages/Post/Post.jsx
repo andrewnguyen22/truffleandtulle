@@ -9,7 +9,7 @@ import Meta from '../../meta/Meta'
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
-const commentsurl = "http://144.202.46.49/wp-json/wp/v2/comments?post=";
+const commentsurl = "https://truffleandtulle.site/wp-json/wp/v2/comments?post=";
 let postid = 0;
 
 class Comment extends Component {
@@ -148,9 +148,9 @@ class Post extends Component {
         let post;
         if (this.props.location !== undefined) {
             post = this.props.location.state.referrer;
-            var state = {name: "http://truffleandtulle.com/blog", page: 'Blog'};
+            var state = {name: "https://truffleandtulle.com/blog", page: 'Blog'};
             window.history.pushState(state,
-                "URL Rewrite", "http://truffleandtulle.com/link?" +
+                "URL Rewrite", "https://truffleandtulle.com/link?" +
                 this.props.location.state.referrer.id);
             window.onpopstate = function (event) {
                 history.push('blog');
