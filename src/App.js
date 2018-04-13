@@ -13,10 +13,10 @@ import Loading from './loading/Loading.js'
 import axios from "axios/index";
 
 //Global Wordpress URLs to query
-const SEARCHURL = "http://8.9.5.159:80/wp-json/wp/v2/posts?search=";
-const WPURL = "http://8.9.5.159:80/wp-json/wp/v2/posts?";
-const RECIPEURL = "http://8.9.5.159:80/wp-json/wp/v2/posts?categories=2";
-const RECIPESEARCHURL = "http://8.9.5.159:80/wp-json/wp/v2/posts?categories=2&search=";
+const SEARCHURL = "http://8.9.5.159:8080/wp-json/wp/v2/posts?search=";
+const WPURL = "http://8.9.5.159:8080/wp-json/wp/v2/posts?";
+const RECIPEURL = "http://8.9.5.159:8080/wp-json/wp/v2/posts?categories=2";
+const RECIPESEARCHURL = "http://8.9.5.159:8080/wp-json/wp/v2/posts?categories=2&search=";
 const MONTHS = [
     "January",
     "February",
