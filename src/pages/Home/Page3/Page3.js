@@ -48,7 +48,7 @@ export class PageThree extends Component {
                     <div className="Youtube" style={style}>
                         <h1>RECENT VIDEOS</h1>
                         <a rel="noopener noreferrer" target="_blank"
-                           href="https://www.youtube.com/channel/UUg8AlYqRz_eAGH_TL9_kgOw">SEE ALL VIDEOS</a>
+                           href="https://www.youtube.com/channel/UCg8AlYqRz_eAGH_TL9_kgOw">SEE ALL VIDEOS</a>
                         <div className="Youtube-column" style={{height: this.state.height - 200 + "px"}}>
                             <div className="Youtube-primary-video">
                                 <iframe onLoad={this.handleYoutubeLoad} width="100%" title="youtube1"
