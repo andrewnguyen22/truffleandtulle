@@ -149,15 +149,16 @@ class Post extends Component {
         if (this.props.location !== undefined) {
             post = this.props.location.state.referrer;
             var state = {name: "https://truffleandtulle.com/blog", page: 'Blog'};
-            window.history.pushState(state,
-                "URL Rewrite", "https://truffleandtulle.com/link?" +
-                this.props.location.state.referrer.id);
-            window.onpopstate = function (event) {
-                history.push('blog');
-                return (<Redirect to={{
-                    pathname: '/blog'
-                }}/>);
-            };
+            // ** The rewrite below was not compatible with instagram **
+            // window.history.pushState(state,
+            //     "URL Rewrite", "https://truffleandtulle.com/link?" +
+            //     this.props.location.state.referrer.id);
+            // window.onpopstate = function (event) {
+            //     history.push('blog');
+            //     return (<Redirect to={{
+            //         pathname: '/blog'
+            //     }}/>);
+            // };
         }
         else if (this.props.parentPassesPost !== undefined) {
             post = this.props.parentPassesPost
